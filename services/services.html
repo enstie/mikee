@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Renovations &amp; Pools - Micasa</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1152d4",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+              "surface-dark": "#1a2130", 
+              "surface-light": "#ffffff",
+            },
+            fontFamily: {
+              "display": ["Public Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+
+    .skeleton-shimmer {
+      background: linear-gradient(90deg, rgba(148, 163, 184, 0.22) 25%, rgba(148, 163, 184, 0.38) 50%, rgba(148, 163, 184, 0.22) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.2s linear infinite;
+    }
+
+    @keyframes skeleton-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+<div id="page-skeleton" class="fixed inset-0 z-[100] bg-background-light dark:bg-background-dark p-4 transition-opacity duration-300">
+<div class="mx-auto max-w-7xl">
+<div class="h-12 rounded-xl skeleton-shimmer mb-6"></div>
+<div class="h-8 w-2/3 rounded-lg skeleton-shimmer mb-3"></div>
+<div class="h-4 w-full rounded-lg skeleton-shimmer mb-2"></div>
+<div class="h-4 w-5/6 rounded-lg skeleton-shimmer mb-6"></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="h-52 rounded-xl skeleton-shimmer"></div>
+<div class="h-52 rounded-xl skeleton-shimmer"></div>
+</div>
+<div class="h-36 rounded-xl skeleton-shimmer"></div>
+</div>
+</div>
+<div class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root">
+<!-- Header -->
+<div class="sticky top-0 z-50 flex items-center bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md px-4 py-3 justify-between border-b border-slate-200 dark:border-slate-800">
+<button aria-label="Go back" id="back-button" class="text-slate-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer" type="button">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Renovations &amp; Pools</h2>
+<button aria-label="Toggle dark mode" id="theme-toggle" class="flex size-10 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer text-slate-900 dark:text-white" type="button">
+<span class="material-symbols-outlined text-2xl" id="theme-icon">light_mode</span>
+</button>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto pb-24">
+<!-- Hero / Title Section -->
+<div class="px-5 pt-8 pb-6">
+<p class="text-primary text-sm font-bold tracking-widest uppercase mb-2">Portfolio</p>
+<h1 class="text-slate-900 dark:text-white text-5xl font-black leading-[0.9] tracking-tight mb-4">TRANS<br/>FORMATIONS</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-relaxed max-w-prose">
+                    Witness the evolution of space through our bespoke renovation services. From blueprint to brutalist elegance.
+                </p>
+</div>
+<!-- Tabs -->
+<div class="flex gap-4 px-5 pb-6 overflow-x-auto no-scrollbar">
+<button data-tab="architecture" class="px-5 py-2 rounded-full bg-primary text-white text-sm font-semibold whitespace-nowrap">Architecture</button>
+<button data-tab="renovations" class="px-5 py-2 rounded-full bg-slate-200 dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-slate-300 dark:hover:border-slate-700">Renovations</button>
+<button data-tab="pools" class="px-5 py-2 rounded-full bg-slate-200 dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-slate-300 dark:hover:border-slate-700">Pools &amp; Water</button>
+<button data-tab="landscaping" class="px-5 py-2 rounded-full bg-slate-200 dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-slate-300 dark:hover:border-slate-700">Landscaping</button>
+</div>
+<!-- Featured Before/After Slider -->
+<div class="px-5 mb-8" data-category="renovations">
+<div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-2xl group">
+<!-- Before Image (Base) -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Old dilapidated interior room with peeling paint" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB2fyD1aA6Nkfk54SKWo3t08m5Z2oJ2Dy8NrUuomBsjTOhcEF11bs0s6Ev6Rghxv7CHNwO3Hh8Ct9v52FhzxDHJJ07lF8EN6-xAPgGQA10cog4q2ZgmgZpjcWf54i66rwwYj-mAELoj3su0TVe5P0XLUB5P2GMlfVqmzIWNrZB0q6bK_V_yIrdTQyAk8hW6NyMVcUoI94jVamrkojJ2hDkXcjLvuQ8dgzOy9stRoXT0cOfADiOfxbxIwU9_t0NBk5E_cLaj5XDfGxI");'></div>
+<!-- After Image (Clipped) -->
+<div class="absolute inset-0 w-[55%] bg-cover bg-center border-r-2 border-white/50 overflow-hidden" data-alt="Modern luxury minimalist living room renovation" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjOctj3n0EpGPgYFq9BRqIraAzFPO7IMK8H_P9M2Q5PfLaxP8IlaahcTmaneJyguRncyJMDwCMX9LgfRsOPmgNS3PsowErRpk3sq41j9XLrFzQHoFxWEiwGNemF1bW1Og1P5u34L8aL7xVoloihEVPOJ-cgNcDRYQigB65H9hDjgHubllW_n9RMg7_ALvJBSWSsF7p31eRvWtIdP8pmmtMZFJtaJckPMhhhEJjqvVrcawTFFPqZ06AmtqtnDQ--DA4GNY3R-_WB3Y");'>
+<div class="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">After</div>
+</div>
+<!-- Slider Handle (Simulated) -->
+<div class="absolute inset-y-0 left-[55%] -ml-4 flex items-center justify-center pointer-events-none">
+<div class="size-8 rounded-full bg-white shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-900 text-sm">unfold_more_double</span> <!-- Rotated visually via CSS if needed, using standard icon for now -->
+</div>
+</div>
+<div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Before</div>
+<!-- Caption Overlay -->
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-6 pt-20">
+<h3 class="text-white text-xl font-bold">The Obsidian Villa</h3>
+<p class="text-slate-300 text-sm mt-1">Total structural overhaul &amp; interior refinement</p>
+</div>
+</div>
+<p class="text-center text-xs text-slate-400 mt-3 font-medium flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm">touch_app</span> Drag slider to compare
+                </p>
+</div>
+<!-- Divider -->
+<div class="px-5 mb-8" data-category="renovations">
+<div class="h-px w-full bg-slate-200 dark:bg-slate-800"></div>
+</div>
+<!-- Pool Section - Blueprint Transition -->
+<div class="px-5 pb-6" data-category="pools">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold">Aquatic Blueprints</h2>
+<span class="text-primary text-sm font-semibold">View All</span>
+</div>
+<div class="grid gap-6">
+<!-- Item 1 -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="relative h-48 w-full">
+<!-- Bottom Layer: Blueprint -->
+<div class="absolute inset-0 bg-[#1a3c6e] p-4 flex items-center justify-center" data-alt="Architectural blueprint pattern blue">
+<div class="w-full h-full border border-dashed border-blue-300/30 rounded-lg opacity-50 bg-[url('https://www.transparenttextures.com/patterns/blueprint.png')]"></div>
+<span class="absolute text-blue-200/20 text-4xl font-black font-mono rotate-12">BLUEPRINT</span>
+</div>
+<!-- Top Layer: Water/Realization (Masked for effect) -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Luxury infinity pool with crystal clear water" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB53PtEomHUXtXOjvfIWVISz0hZs-FRMHgBV-l30FJlnWCp7shHDt6YBjRn6zKWIoy1-cZ7Dx-3J5DmsN3hWllvRB92ox34_xkG0Fk_xOO4ACyQMRtPU95WRkJ0Koadm25cDCk4xphnv4LKFmMKrcGVe9hr0fEWNijhf3Au2LlUApp_SrZ1cDCEr4dibf5reuyVKVt804nJrUAaP-5TnxV25dI5iYCPHFDEp1gA9huO7gxZNAU0w-tBnJA7UHgisfpsScErQhQoWNU"); clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);'></div>
+<div class="absolute bottom-3 right-3 bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-white">water_drop</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Azure Infinity</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Residential • 4 Weeks</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="relative h-48 w-full">
+<!-- Bottom Layer: Blueprint -->
+<div class="absolute inset-0 bg-[#2c2c2c] p-4 flex items-center justify-center" data-alt="Dark technical architectural grid">
+<div class="w-full h-full border border-white/10 rounded-lg bg-[linear-gradient(45deg,#333_25%,transparent_25%,transparent_75%,#333_75%,#333),linear-gradient(45deg,#333_25%,transparent_25%,transparent_75%,#333_75%,#333)] bg-[length:20px_20px]"></div>
+</div>
+<!-- Top Layer: Stone/Realization -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Dark stone pool coping and water texture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAAhRQtAb3Kh0BGTgMrk4-henc3C-WHUwR6mRpy0NKVYpJjfnXStcIsihBUwGzixLPwWxREhY971ibJ2QaaWV4lzKl98-jeBR9lVe6oAlwZfdLeN2fLRjbwk02SxhYNqikQMmtefX_DCVY1J9JlLtrIoLF4WyIXisEC1lmafP1JJHMSxEw1bam3_m1NKfjE95_wYSVusSKpdITzOmyS-HA9BsKdHVFU0MAC9xQkG0hO8dK8Kjwn6qASTX1PkKC850_TJVt-b_jlzz8"); mask-image: linear-gradient(to right, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);'></div>
+<div class="absolute top-3 left-3">
+<span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">In Progress</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Brutalist Plunge</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Commercial • Est. Q3</p>
+</div>
+<button class="bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">lock</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="hidden px-5 pb-8" data-category="landscaping">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold">Landscaping Designs</h2>
+<span class="text-primary text-sm font-semibold">View All</span>
+</div>
+<div class="grid gap-4">
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="h-44 w-full border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Add Landscaping Image 1</p>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Project Title</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Landscape Type • Location</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary p-2 rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="h-44 w-full border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Add Landscaping Image 2</p>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Project Title</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Landscape Type • Location</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary p-2 rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="hidden px-5 pb-8" data-category="architecture">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold">Architecture Designs</h2>
+<span class="text-primary text-sm font-semibold">View All</span>
+</div>
+<div class="grid gap-4" id="architecture-grid"></div>
+</div>
+</div>
+</div>
+<!-- Stats Section -->
+<div class="px-5 pb-8">
+<div class="grid grid-cols-3 gap-4">
+<div class="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-100 dark:border-slate-800">
+<span class="text-primary font-black text-2xl">42</span>
+<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold tracking-wider mt-1 text-center">Projects</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-100 dark:border-slate-800">
+<span class="text-primary font-black text-2xl">18</span>
+<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold tracking-wider mt-1 text-center">Awards</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-100 dark:border-slate-800">
+<span class="text-primary font-black text-2xl">100%</span>
+<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold tracking-wider mt-1 text-center">Safety</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 w-full flex gap-2 border-t border-slate-200 dark:border-[#282e39] bg-white dark:bg-[#1c1f27] px-4 pb-6 pt-3 z-50">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 dark:text-[#9da6b9] hover:text-primary dark:hover:text-white transition-colors" href="../micasa_maa_home_the_x_ray_reveal/index.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">home</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Home</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 dark:text-[#9da6b9] hover:text-primary dark:hover:text-white transition-colors" href="../architecture_construction_timeline/constraction.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">apartment</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Project</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-primary" href="../services/services.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">design_services</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Service</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 dark:text-[#9da6b9] hover:text-primary dark:hover:text-white transition-colors" href="../interactive_project_consultation/consultation.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">mail</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Contact</p>
+</a>
+</div>
+</div>
+<script>
+    const pageSkeleton = document.getElementById("page-skeleton");
+
+    const hideSkeleton = () => {
+      if (!pageSkeleton || !pageSkeleton.parentElement) {
+        return;
+      }
+      pageSkeleton.classList.add("opacity-0", "pointer-events-none");
+      setTimeout(() => {
+        if (pageSkeleton.parentElement) {
+          pageSkeleton.remove();
+        }
+      }, 300);
+    };
+
+    window.addEventListener("load", () => {
+      setTimeout(hideSkeleton, 320);
+    });
+    setTimeout(hideSkeleton, 2000);
+
+    const backButton = document.getElementById("back-button");
+    if (backButton) {
+      backButton.addEventListener("click", () => {
+        if (window.history.length > 1) {
+          window.history.back();
+          return;
+        }
+        window.location.href = "../micasa_maa_home_the_x_ray_reveal/index.html";
+      });
+    }
+
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    const THEME_KEY = "micasa-theme";
+
+    const applyStoredTheme = () => {
+      try {
+        const storedTheme = localStorage.getItem(THEME_KEY);
+        if (storedTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else if (storedTheme === "light") {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch (_) {
+      }
+    };
+
+    const setThemeIcon = () => {
+      if (!themeIcon) {
+        return;
+      }
+      themeIcon.textContent = document.documentElement.classList.contains("dark") ? "light_mode" : "dark_mode";
+    };
+
+    applyStoredTheme();
+    setThemeIcon();
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        try {
+          localStorage.setItem(THEME_KEY, document.documentElement.classList.contains("dark") ? "dark" : "light");
+        } catch (_) {
+        }
+        setThemeIcon();
+      });
+    }
+
+    const tabButtons = Array.from(document.querySelectorAll("[data-tab]"));
+    const categoryPanels = Array.from(document.querySelectorAll("[data-category]"));
+
+    const setActiveTab = (activeTab) => {
+      tabButtons.forEach((button) => {
+        const isActive = button.getAttribute("data-tab") === activeTab;
+        if (isActive) {
+          button.classList.remove("bg-slate-200", "dark:bg-surface-dark", "text-slate-600", "dark:text-slate-300", "font-medium", "border", "border-transparent");
+          button.classList.add("bg-primary", "text-white", "font-semibold");
+          return;
+        }
+        button.classList.remove("bg-primary", "text-white", "font-semibold");
+        button.classList.add("bg-slate-200", "dark:bg-surface-dark", "text-slate-600", "dark:text-slate-300", "font-medium", "border", "border-transparent");
+      });
+    };
+
+    const filterByTab = (activeTab) => {
+      categoryPanels.forEach((panel) => {
+        const panelCategory = panel.getAttribute("data-category");
+        panel.classList.toggle("hidden", panelCategory !== activeTab);
+      });
+
+      setActiveTab(activeTab);
+    };
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextTab = button.getAttribute("data-tab") || "renovations";
+        filterByTab(nextTab);
+      });
+    });
+
+    const architectureGrid = document.getElementById("architecture-grid");
+    const architectureImages = [
+      "apartment 1.jpg",
+      "service 2 .jfif",
+      "service 3.jfif",
+      "service 4.jfif",
+      "service 5.jfif",
+      "service 6.jfif",
+      "service 7.jfif",
+      "service 8.jfif",
+      "service 10.jfif",
+      "service 11.jfif",
+      "service 12.jfif",
+      "service 13.jfif",
+      "service 14.jfif",
+      "service 15.jfif",
+      "service 16.jfif",
+      "service-pool.jpg",
+      "service-villa.jpg"
+    ];
+
+    if (architectureGrid) {
+      architectureGrid.innerHTML = architectureImages.map((fileName, index) => {
+        const imagePath = encodeURI(fileName);
+        return `
+          <div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+            <div class="h-44 w-full border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 overflow-hidden">
+              <img src="${imagePath}" alt="Architecture design ${index + 1}" class="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="text-slate-900 dark:text-white font-bold text-lg">Architecture Design ${index + 1}</h3>
+                  <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Building Concept • Portfolio</p>
+                </div>
+                <button class="bg-primary/10 hover:bg-primary/20 text-primary p-2 rounded-lg transition-colors" type="button">
+                  <span class="material-symbols-outlined text-xl">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    filterByTab("architecture");
+  </script>
+</body></html>
