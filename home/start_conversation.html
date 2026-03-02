@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Start a Conversation | Micasa-maa</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1152d4",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              "display": ["Public Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+
+    .skeleton-shimmer {
+      background: linear-gradient(90deg, rgba(148, 163, 184, 0.22) 25%, rgba(148, 163, 184, 0.38) 50%, rgba(148, 163, 184, 0.22) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.2s linear infinite;
+    }
+
+    @keyframes skeleton-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-slate-100 min-h-screen overflow-x-hidden">
+<div id="page-skeleton" class="fixed inset-0 z-[100] bg-background-light dark:bg-background-dark p-4 transition-opacity duration-300">
+<div class="mx-auto max-w-7xl">
+<div class="h-12 rounded-xl skeleton-shimmer mb-6"></div>
+<div class="h-8 w-2/3 rounded-lg skeleton-shimmer mb-3"></div>
+<div class="h-4 w-full rounded-lg skeleton-shimmer mb-2"></div>
+<div class="h-4 w-5/6 rounded-lg skeleton-shimmer mb-6"></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="h-52 rounded-xl skeleton-shimmer"></div>
+<div class="h-52 rounded-xl skeleton-shimmer"></div>
+</div>
+<div class="h-36 rounded-xl skeleton-shimmer"></div>
+</div>
+</div>
+<header class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+<button aria-label="Go back" id="back-button" class="text-slate-900 dark:text-white flex items-center justify-center rounded-full p-2 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" type="button">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<p class="text-slate-900 dark:text-white text-lg md:text-xl font-bold tracking-tight uppercase">Micasa-maa Intake</p>
+<button aria-label="Toggle dark mode" id="theme-toggle" class="text-slate-900 dark:text-white flex items-center justify-center p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" type="button">
+<span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+<section class="lg:col-span-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#161c28] p-6 md:p-8 shadow-xl shadow-slate-200/40 dark:shadow-black/20">
+<div class="mb-8">
+<p class="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-primary">
+<span class="material-symbols-outlined !text-base">handshake</span>
+Private Engagement Request
+</p>
+<h1 class="mt-3 text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">Start Your Consultation</h1>
+<p class="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">Share your brief and our principal team will respond with a tailored project pathway, timeline, and initial strategy within one business day.</p>
+</div>
+<form class="space-y-6" id="conversation-form" action="#" method="post">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="full-name">Full Name</label>
+<input class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="full-name" name="fullName" placeholder="e.g. Michael Uton" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="email">Work Email</label>
+<input class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="email" name="email" placeholder="you@company.com" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="project-type">Project Type</label>
+<select class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="project-type" name="projectType">
+<option>Residential Estate</option>
+<option>Commercial Development</option>
+<option>Renovation & Adaptive Reuse</option>
+<option>Hospitality & Lifestyle</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="location">Project Location</label>
+<input class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="location" name="location" placeholder="City, Country" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="budget">Budget Range</label>
+<select class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="budget" name="budget">
+<option>$500k - $1M</option>
+<option>$1M - $3M</option>
+<option>$3M - $7M</option>
+<option>$7M+</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="brief">Project Brief</label>
+<textarea class="w-full min-h-[160px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="brief" name="brief" placeholder="Outline your goals, preferred style direction, and critical requirements."></textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="timeline">Preferred Start Window</label>
+<select class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="timeline" name="timeline">
+<option>Immediate (0-3 months)</option>
+<option>Near term (3-6 months)</option>
+<option>Mid term (6-12 months)</option>
+<option>Exploratory (12+ months)</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="channel">Preferred Contact Channel</label>
+<select class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#101622] px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50" id="channel" name="channel">
+<option>Video Consultation</option>
+<option>Phone</option>
+<option>Email</option>
+</select>
+</div>
+</div>
+<div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-3">
+<button class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-primary hover:bg-blue-600 text-white font-bold tracking-wide transition-colors" type="submit">
+Send Request
+<span class="material-symbols-outlined">send</span>
+</button>
+<button class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold transition-colors" id="return-button" type="button">
+Back
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<p class="text-xs text-slate-500 dark:text-slate-400">No automated spam. Direct response from the strategy desk.</p>
+</div>
+</form>
+</section>
+<aside class="lg:col-span-2 space-y-6">
+<div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#131b28] p-6">
+<h2 class="text-xl font-bold text-slate-900 dark:text-white">What Happens Next</h2>
+<ol class="mt-4 space-y-4 text-sm text-slate-600 dark:text-slate-400">
+<li class="flex gap-3"><span class="text-primary font-black">01</span><span>We review your brief and match it to the relevant design and engineering leads.</span></li>
+<li class="flex gap-3"><span class="text-primary font-black">02</span><span>You receive an initial discovery call slot and a strategic checklist.</span></li>
+<li class="flex gap-3"><span class="text-primary font-black">03</span><span>We share a scoped proposal with milestones, timelines, and decision gates.</span></li>
+</ol>
+</div>
+<div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#161c28] p-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Engagement Standard</h3>
+<div class="mt-4 grid grid-cols-2 gap-3">
+<div class="rounded-xl border border-slate-200 dark:border-slate-700 p-3 text-center">
+<p class="text-2xl font-black text-primary">24h</p>
+<p class="text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400">Response SLA</p>
+</div>
+<div class="rounded-xl border border-slate-200 dark:border-slate-700 p-3 text-center">
+<p class="text-2xl font-black text-primary">5</p>
+<p class="text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400">Active Private Slots</p>
+</div>
+</div>
+<p class="mt-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">We intentionally keep a small active roster to protect design quality and execution precision.</p>
+</div>
+</aside>
+</div>
+</main>
+<script>
+    const pageSkeleton = document.getElementById("page-skeleton");
+
+    const hideSkeleton = () => {
+      if (!pageSkeleton || !pageSkeleton.parentElement) {
+        return;
+      }
+      pageSkeleton.classList.add("opacity-0", "pointer-events-none");
+      setTimeout(() => {
+        if (pageSkeleton.parentElement) {
+          pageSkeleton.remove();
+        }
+      }, 300);
+    };
+
+    window.addEventListener("load", () => {
+      setTimeout(hideSkeleton, 320);
+    });
+    setTimeout(hideSkeleton, 2000);
+
+    const backButton = document.getElementById("back-button");
+    if (backButton) {
+      backButton.addEventListener("click", () => {
+        if (window.history.length > 1) {
+          window.history.back();
+          return;
+        }
+        window.location.href = "../micasa_maa_home_the_x_ray_reveal/index.html";
+      });
+    }
+
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    const returnButton = document.getElementById("return-button");
+    const THEME_KEY = "micasa-theme";
+    const FORM_STATE_KEY = "micasa-conversation-form-state";
+    const conversationForm = document.getElementById("conversation-form");
+
+    const applyStoredTheme = () => {
+      try {
+        const storedTheme = localStorage.getItem(THEME_KEY);
+        if (storedTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else if (storedTheme === "light") {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch (_) {
+      }
+    };
+
+    const setThemeIcon = () => {
+      if (!themeIcon) {
+        return;
+      }
+      themeIcon.textContent = document.documentElement.classList.contains("dark") ? "light_mode" : "dark_mode";
+    };
+
+    applyStoredTheme();
+    setThemeIcon();
+
+    const saveFormState = () => {
+      if (!conversationForm) {
+        return;
+      }
+
+      try {
+        const formData = new FormData(conversationForm);
+        const state = {};
+
+        for (const [key, value] of formData.entries()) {
+          state[key] = String(value);
+        }
+
+        localStorage.setItem(FORM_STATE_KEY, JSON.stringify(state));
+      } catch (_) {
+      }
+    };
+
+    const restoreFormState = () => {
+      if (!conversationForm) {
+        return;
+      }
+
+      try {
+        const rawState = localStorage.getItem(FORM_STATE_KEY);
+        if (!rawState) {
+          return;
+        }
+
+        const parsedState = JSON.parse(rawState);
+        if (!parsedState || typeof parsedState !== "object") {
+          return;
+        }
+
+        const formElements = Array.from(conversationForm.elements);
+        formElements.forEach((element) => {
+          if (!element || !element.name) {
+            return;
+          }
+
+          if (!Object.prototype.hasOwnProperty.call(parsedState, element.name)) {
+            return;
+          }
+
+          const savedValue = parsedState[element.name];
+          if (typeof savedValue !== "string") {
+            return;
+          }
+
+          element.value = savedValue;
+        });
+      } catch (_) {
+      }
+    };
+
+    restoreFormState();
+
+    if (conversationForm) {
+      conversationForm.addEventListener("input", saveFormState);
+      conversationForm.addEventListener("change", saveFormState);
+    }
+
+    if (conversationForm) {
+      conversationForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        saveFormState();
+        window.alert("Your message has been saved. WhatsApp sending is currently disabled.");
+      });
+    }
+
+    if (returnButton) {
+      returnButton.addEventListener("click", () => {
+        if (window.history.length > 1) {
+          window.history.back();
+          return;
+        }
+        window.location.href = "../micasa_maa_home_the_x_ray_reveal/index.html";
+      });
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        try {
+          localStorage.setItem(THEME_KEY, document.documentElement.classList.contains("dark") ? "dark" : "light");
+        } catch (_) {
+        }
+        setThemeIcon();
+      });
+    }
+  </script>
+</body></html>
