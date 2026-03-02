@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Micasa-maa Architecture</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    
+        .skeleton-shimmer {
+            background: linear-gradient(90deg, rgba(148, 163, 184, 0.22) 25%, rgba(148, 163, 184, 0.38) 50%, rgba(148, 163, 184, 0.22) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.2s linear infinite;
+        }
+    
+        @keyframes skeleton-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased min-h-screen flex flex-col">
+<div id="page-skeleton" class="fixed inset-0 z-[100] bg-background-light dark:bg-background-dark p-4 transition-opacity duration-300">
+<div class="mx-auto max-w-7xl">
+<div class="h-12 rounded-xl skeleton-shimmer mb-6"></div>
+<div class="h-8 w-2/3 rounded-lg skeleton-shimmer mb-3"></div>
+<div class="h-4 w-full rounded-lg skeleton-shimmer mb-2"></div>
+<div class="h-4 w-5/6 rounded-lg skeleton-shimmer mb-6"></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="h-52 rounded-xl skeleton-shimmer"></div>
+<div class="h-52 rounded-xl skeleton-shimmer"></div>
+</div>
+<div class="h-36 rounded-xl skeleton-shimmer"></div>
+</div>
+</div>
+<!-- Main Content Area with scrolling -->
+<main class="flex-1 overflow-y-auto overflow-x-hidden relative pb-24">
+<!-- Header / Nav Area -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-3">
+<div class="flex items-center justify-between h-12">
+<div class="flex items-center gap-3">
+<button aria-label="Go back" id="back-button" class="text-slate-900 dark:text-white flex items-center justify-center rounded-full p-2 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" type="button">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back</span>
+</button>
+<span class="text-slate-900 dark:text-white text-xl font-bold tracking-tight uppercase">Micasa-maa</span>
+</div>
+<button aria-label="Toggle dark mode" id="theme-toggle" class="text-slate-900 dark:text-white flex items-center justify-center rounded-full p-2 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" type="button">
+<span class="material-symbols-outlined" id="theme-icon" style="font-size: 24px;">light_mode</span>
+</button>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative h-[60vh] w-full flex items-end p-6 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center z-0" data-alt="Modern brutalist concrete building facade angle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxABwUBcpiDykhFjZbtgOVfb73Xm1Bj4niuPlASTQ2AHjCOJ4djymT4W1lp_IRZnPqGUqDRTLQZx-1WZ7I-Qb5dDc8OLI8br2jQybjvXbkLHfeoB96qBcoWkORcEx2X99gpNYOtQlDuNef5h5BATHpy6pmRu011IYDz8JEsJHQKskUUA4jm_5PiV1bJmJKBDWZiIcDNRHwuHGhfu0AJD6rY4YUeWOGX-07X9-6yC7O6YmL8TLQ8cwsehKWke53SBZMZ9brOIVbF90');">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/50 to-transparent"></div>
+</div>
+<div class="relative z-10 w-full">
+<span class="inline-block px-3 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider mb-3 rounded-full">In Progress</span>
+<h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-2 tracking-tight">
+                    The Concrete <br/> Chronicle
+                </h1>
+<p class="text-slate-300 text-sm md:text-base font-medium max-w-md">
+                    Witness the evolution of structure. A brutalist journey from raw excavation to the final steel skeleton.
+                </p>
+</div>
+</section>
+<!-- Timeline Section Header -->
+<section class="px-6 pt-10 pb-4">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Construction Timeline</h2>
+<button class="text-primary text-sm font-semibold hover:text-primary/80 flex items-center gap-1">
+                    View Full Plan
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</button>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                Scroll horizontally to explore the key milestones of the Micasa-maa project development.
+            </p>
+</section>
+<!-- Horizontal Scroll Timeline -->
+<section class="pl-6 pb-10 overflow-x-auto no-scrollbar flex gap-4 w-full snap-x snap-mandatory">
+<!-- Card 1 -->
+<div class="snap-center shrink-0 w-[280px] h-[400px] relative rounded-xl overflow-hidden group">
+<video class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" autoplay muted loop playsinline>
+<source src="./constraction.mp4" type="video/mp4">
+</video>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-5 w-full">
+<div class="flex items-center gap-2 mb-2">
+<div class="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">01</div>
+<span class="text-slate-300 text-xs font-bold uppercase tracking-wider">Jan 2023</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-1">Site Excavation</h3>
+<p class="text-slate-400 text-xs line-clamp-2">Breaking ground to establish the deep foundation required for the brutalist superstructure.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="snap-center shrink-0 w-[280px] h-[400px] relative rounded-xl overflow-hidden group">
+<video class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" autoplay muted loop playsinline>
+<source src="./constraction1.mp4" type="video/mp4">
+</video>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-5 w-full">
+<div class="flex items-center gap-2 mb-2">
+<div class="h-8 w-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white font-bold text-sm">02</div>
+<span class="text-slate-300 text-xs font-bold uppercase tracking-wider">Mar 2023</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-1">Concrete Pour</h3>
+<p class="text-slate-400 text-xs line-clamp-2">Laying the massive reinforced concrete slab that serves as the visual and structural base.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="snap-center shrink-0 w-[280px] h-[400px] relative rounded-xl overflow-hidden group">
+<video class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" autoplay muted loop playsinline>
+<source src="./construction2.mp4" type="video/mp4">
+</video>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-5 w-full">
+<div class="flex items-center gap-2 mb-2">
+<div class="h-8 w-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white font-bold text-sm">03</div>
+<span class="text-slate-300 text-xs font-bold uppercase tracking-wider">Aug 2023</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-1">Steel Skeleton</h3>
+<p class="text-slate-400 text-xs line-clamp-2">Erecting the primary steel columns and beams, defining the building's stark silhouette.</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="snap-center shrink-0 w-[280px] h-[400px] relative rounded-xl overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Modern building facade with glass and concrete" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHQ-U1BEOV9guuJYpWkL9wgvb7MHc5a5D5Ka1HlyMRav09TnoGiy1reaIcligGP0108vtSevn2lJmSqmlGxhYbtW8g-YHseD6VBpYeNWzDlhsL2okGuLRUPvk7_YdREE0ApPtY5nRnfTqQOIoaI2R1fVEbg5WH7OGzRhf90K1DEaJFLiQ4M8iHL-jp0JuWyQH1kGtemDy9KTCA9S1GlG7mdh2WgbXBjmGJTFhUpthrNRhZIyYaZxWm4Zkq7QPfGrBePHczi483Qew');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-5 w-full">
+<div class="flex items-center gap-2 mb-2">
+<div class="h-8 w-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white font-bold text-sm">04</div>
+<span class="text-slate-300 text-xs font-bold uppercase tracking-wider">Dec 2023</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-1">Facade Cladding</h3>
+<p class="text-slate-400 text-xs line-clamp-2">Installing the pre-cast concrete panels and glazing to seal the envelope.</p>
+</div>
+</div>
+<!-- Spacer for right padding scroll -->
+<div class="w-2 shrink-0"></div>
+</section>
+<!-- Technical Drawings Grid -->
+<section class="px-6 pb-8">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Blueprints</h2>
+<span class="text-slate-500 text-xs font-mono uppercase tracking-widest border border-slate-700 px-2 py-1 rounded">REV 2.0</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Blueprint 1 -->
+<div class="bg-slate-200 dark:bg-[#1c2230] p-4 rounded-xl flex flex-col gap-3 hover:bg-slate-300 dark:hover:bg-[#252c3d] transition-colors cursor-pointer group">
+<div class="aspect-square w-full bg-slate-300 dark:bg-[#151a25] rounded-lg overflow-hidden relative">
+<div class="absolute inset-0 opacity-70 dark:opacity-50" data-alt="Technical architectural drawing floor plan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6UaoRUSAsGHBGEYWKQ9pxUMCfOwDfCuNrt1NdXSyFefJrtRx-zkBKi_c_o-bASm3daS026GTUWpqKZg4acMsaVKh8pcjaBD-4fScENnHV6zs0N_sgyptKCaE-TCxQ21TfXWX5-jGGp1d462dKrgJrYDtqCDrR5A9qYBVNRbDp4g-0X4Gb0CIBOCelqiLLoQ69roSRD3i8cKsTW_rc2fF6nVymcKjUqXpqNO8-Gz4n_alRptlwuqfRfqmJHSjpaqLBWOXC3GcOFeY'); background-size: cover; background-position: center;"></div>
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors"></div>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
+                             A-101
+                         </div>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-semibold text-sm">Ground Floor Plan</h4>
+<p class="text-slate-500 text-xs mt-1">Scale 1:100</p>
+</div>
+</div>
+<!-- Blueprint 2 -->
+<div class="bg-slate-200 dark:bg-[#1c2230] p-4 rounded-xl flex flex-col gap-3 hover:bg-slate-300 dark:hover:bg-[#252c3d] transition-colors cursor-pointer group">
+<div class="aspect-square w-full bg-slate-300 dark:bg-[#151a25] rounded-lg overflow-hidden relative">
+<div class="absolute inset-0 opacity-70 dark:opacity-50" data-alt="Technical architectural section detail drawing" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCPfT8y6R6bgWRP9L_2ldBKYZKVQQai3lW-DLvRG9BACHieP5Wcqna3llILTyk1gH5VfLI5Tg0ongSR1aOG2nkuLYw-sUw_Wv-ouJTcpkB3C7ziw5Gy-npGXDDC3IZCFoSzqEqS10qCcPoofmuilGsl4sggyRubjhq1-LZDI-_N7vfgkBXTa7-UFZzosy5694oxmmBcuxiaHq0B50F253l4zE8_xawjIeDnQsZzDQmZpkaUA32wGy4ewaw2WgZfAc5pdb0jYfSZUsg'); background-size: cover; background-position: center;"></div>
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors"></div>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
+                             S-204
+                         </div>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-semibold text-sm">East Elevation</h4>
+<p class="text-slate-500 text-xs mt-1">Scale 1:50</p>
+</div>
+</div>
+<!-- Blueprint 3 -->
+<div class="bg-slate-200 dark:bg-[#1c2230] p-4 rounded-xl flex flex-col gap-3 hover:bg-slate-300 dark:hover:bg-[#252c3d] transition-colors cursor-pointer group">
+<div class="aspect-square w-full bg-slate-300 dark:bg-[#151a25] rounded-lg overflow-hidden relative">
+<div class="absolute inset-0 opacity-70 dark:opacity-50" data-alt="Blueprint isometric view of structure" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZ4n6gYvBQsRCpY_mu4Xfo5BOLHXD12pRJG34oJ-pxD_zN0S5e3AeZEGPoF5PE6Y7YTk29T3Lnv4jnayykxmQfMz_z75V3l4PJ-qBGx3YZj9-g3rO6YiJS2wKB9eSqLNAMCnx-Ta5LZHtNTQ3wKi6mf83dCi1LEmO0rR1_OmdMJzTMuP5eI79q0sN3s0Dl_KqTLsIhvbdyGzHHF4oVYAGla_c5Vpaji2_5jH7K0cH93L19wJFFL9B9npekmqx5F4BzPzZBocoPAtg'); background-size: cover; background-position: center;"></div>
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors"></div>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
+                             D-305
+                         </div>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-semibold text-sm">Structural Detail</h4>
+<p class="text-slate-500 text-xs mt-1">Scale 1:20</p>
+</div>
+</div>
+<!-- Blueprint 4 -->
+<div class="bg-slate-200 dark:bg-[#1c2230] p-4 rounded-xl flex flex-col gap-3 hover:bg-slate-300 dark:hover:bg-[#252c3d] transition-colors cursor-pointer group">
+<div class="aspect-square w-full bg-slate-300 dark:bg-[#151a25] rounded-lg overflow-hidden relative flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-600 !text-4xl">add</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-semibold text-sm">Add New Sheet</h4>
+<p class="text-slate-500 text-xs mt-1">Upload PDF/DWG</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="px-6 py-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151a25]">
+<div class="flex justify-between divide-x divide-slate-200 dark:divide-slate-700">
+<div class="flex flex-col items-center px-4 w-1/3">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">85%</span>
+<span class="text-[10px] uppercase tracking-wider text-slate-500 mt-1 font-semibold">Complete</span>
+</div>
+<div class="flex flex-col items-center px-4 w-1/3">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">124</span>
+<span class="text-[10px] uppercase tracking-wider text-slate-500 mt-1 font-semibold">Days Left</span>
+</div>
+<div class="flex flex-col items-center px-4 w-1/3">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">14</span>
+<span class="text-[10px] uppercase tracking-wider text-slate-500 mt-1 font-semibold">Contractors</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar -->
+<div class="fixed bottom-0 left-0 w-full z-50 border-t border-slate-200 dark:border-[#282e39] bg-white dark:bg-[#1c1f27] px-4 pb-6 pt-3">
+<div class="flex gap-2">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 dark:text-[#9da6b9] hover:text-primary dark:hover:text-white transition-colors" href="../micasa_maa_home_the_x_ray_reveal/index.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">home</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Home</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-primary" href="../architecture_construction_timeline/constraction.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">apartment</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Project</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 dark:text-[#9da6b9] hover:text-primary dark:hover:text-white transition-colors" href="../services/services.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">design_services</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Service</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400 dark:text-[#9da6b9] hover:text-primary dark:hover:text-white transition-colors" href="../interactive_project_consultation/consultation.html">
+<div class="flex h-6 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">mail</span>
+</div>
+<p class="text-[10px] font-medium leading-normal tracking-wide">Contact</p>
+</a>
+</div>
+</div>
+<script>
+        const pageSkeleton = document.getElementById("page-skeleton");
+
+        const hideSkeleton = () => {
+            if (!pageSkeleton || !pageSkeleton.parentElement) {
+                return;
+            }
+            pageSkeleton.classList.add("opacity-0", "pointer-events-none");
+            setTimeout(() => {
+                if (pageSkeleton.parentElement) {
+                    pageSkeleton.remove();
+                }
+            }, 300);
+        };
+
+        window.addEventListener("load", () => {
+            setTimeout(hideSkeleton, 320);
+        });
+        setTimeout(hideSkeleton, 2000);
+
+        const backButton = document.getElementById("back-button");
+        if (backButton) {
+            backButton.addEventListener("click", () => {
+                if (window.history.length > 1) {
+                    window.history.back();
+                    return;
+                }
+                window.location.href = "../micasa_maa_home_the_x_ray_reveal/index.html";
+            });
+        }
+
+        const themeToggle = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+        const THEME_KEY = "micasa-theme";
+
+        const applyStoredTheme = () => {
+            try {
+                const storedTheme = localStorage.getItem(THEME_KEY);
+                if (storedTheme === "dark") {
+                    document.documentElement.classList.add("dark");
+                } else if (storedTheme === "light") {
+                    document.documentElement.classList.remove("dark");
+                }
+            } catch (_) {
+            }
+        };
+
+        const setThemeIcon = () => {
+            if (!themeIcon) {
+                return;
+            }
+            themeIcon.textContent = document.documentElement.classList.contains("dark") ? "light_mode" : "dark_mode";
+        };
+
+        applyStoredTheme();
+        setThemeIcon();
+        if (themeToggle) {
+            themeToggle.addEventListener("click", () => {
+                document.documentElement.classList.toggle("dark");
+                try {
+                    localStorage.setItem(THEME_KEY, document.documentElement.classList.contains("dark") ? "dark" : "light");
+                } catch (_) {
+                }
+                setThemeIcon();
+            });
+        }
+    </script>
+</body></html>
