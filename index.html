@@ -79,6 +79,7 @@
 <a class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="../interactive_project_consultation/consultation.html">Contact</a>
 </div>
 </div>
+<div class="hidden fixed top-16 inset-x-0 bottom-0 z-30 bg-black/20 backdrop-blur-sm" id="menu-overlay"></div>
 <!-- Hero Section with 'X-Ray' Concept (Simulated via Layout) -->
 <header class="relative w-full px-4 pt-8 pb-12 flex flex-col items-center justify-center min-h-[60vh] @container">
 <div class="max-w-4xl w-full flex flex-col gap-6 z-10">
@@ -308,6 +309,7 @@
 
         const menuToggle = document.getElementById("menu-toggle");
         const mobileMenu = document.getElementById("home-mobile-menu");
+        const menuOverlay = document.getElementById("menu-overlay");
         const themeToggle = document.getElementById("theme-toggle");
         const themeIcon = document.getElementById("theme-icon");
         const THEME_KEY = "micasa-theme";
@@ -348,14 +350,24 @@
         if (menuToggle && mobileMenu) {
             const closeMenu = () => {
                 mobileMenu.classList.add("hidden");
+                if (menuOverlay) {
+                    menuOverlay.classList.add("hidden");
+                }
                 menuToggle.setAttribute("aria-expanded", "false");
             };
 
             menuToggle.addEventListener("click", () => {
                 const isHidden = mobileMenu.classList.contains("hidden");
                 mobileMenu.classList.toggle("hidden");
+                if (menuOverlay) {
+                    menuOverlay.classList.toggle("hidden");
+                }
                 menuToggle.setAttribute("aria-expanded", isHidden ? "true" : "false");
             });
+
+            if (menuOverlay) {
+                menuOverlay.addEventListener("click", closeMenu);
+            }
 
             document.addEventListener("click", (event) => {
                 if (mobileMenu.classList.contains("hidden")) {
