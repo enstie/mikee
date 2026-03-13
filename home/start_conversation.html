@@ -210,7 +210,9 @@ Back
     const returnButton = document.getElementById("return-button");
     const THEME_KEY = "micasa-theme";
     const FORM_STATE_KEY = "micasa-conversation-form-state";
+    const BACKEND_ENDPOINT = "https://micasa-zoho-worker.YOUR_SUBDOMAIN.workers.dev";
     const conversationForm = document.getElementById("conversation-form");
+    const submitButton = conversationForm ? conversationForm.querySelector('button[type="submit"]') : null;
 
     const applyStoredTheme = () => {
       try {
@@ -300,8 +302,55 @@ Back
       conversationForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
+        const formData = new FormData(conversationForm);
+        const payload = Object.fromEntries(formData.entries());
+        const requiredFields = ["fullName", "email", "projectType", "location", "budget", "brief", "timeline", "channel"];
+        const missingFields = requiredFields.filter((field) => !payload[field] || String(payload[field]).trim() === "");
+
+        if (missingFields.length > 0) {
+          window.alert("Please complete all required fields before sending your request.");
+          return;
+        }
+
         saveFormState();
-        window.alert("Your message has been saved. WhatsApp sending is currently disabled.");
+
+        const originalLabel = submitButton ? submitButton.innerHTML : "";
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.classList.add("opacity-70", "cursor-not-allowed");
+          submitButton.innerHTML = 'Sending... <span class="material-symbols-outlined">progress_activity</span>';
+        }
+
+        fetch(BACKEND_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then(async (response) => {
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.ok) {
+              throw new Error(data.error || "Unable to send request right now.");
+            }
+
+            window.alert("Request sent successfully. Our team will contact you shortly.");
+            conversationForm.reset();
+            try {
+              localStorage.removeItem(FORM_STATE_KEY);
+            } catch (_) {
+            }
+          })
+          .catch((error) => {
+            window.alert(error instanceof Error ? error.message : "Request failed. Please try again.");
+          })
+          .finally(() => {
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.classList.remove("opacity-70", "cursor-not-allowed");
+              submitButton.innerHTML = originalLabel;
+            }
+          });
       });
     }
 

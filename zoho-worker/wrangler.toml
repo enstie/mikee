@@ -1,0 +1,9 @@
+name = "micasa-zoho-worker"
+main = "src/index.js"
+compatibility_date = "2026-03-11"
+
+[vars]
+ALLOWED_ORIGIN = "https://YOUR_USERNAME.github.io"
+ZOHO_ACCOUNTS_BASE = "https://accounts.zoho.com"
+ZOHO_API_BASE = "https://www.zohoapis.com"
+ZOHO_MODULE = "Leads"
