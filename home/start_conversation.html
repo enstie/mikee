@@ -210,9 +210,24 @@ Back
     const returnButton = document.getElementById("return-button");
     const THEME_KEY = "micasa-theme";
     const FORM_STATE_KEY = "micasa-conversation-form-state";
+    const CONTACT_STATE_KEY = "micasa-consultation-state";
     const BACKEND_ENDPOINT = "https://micasa-zoho-worker.YOUR_SUBDOMAIN.workers.dev";
+    const INTAKE_EMAIL = "";
     const conversationForm = document.getElementById("conversation-form");
     const submitButton = conversationForm ? conversationForm.querySelector('button[type="submit"]') : null;
+
+    const readConsultationState = () => {
+      try {
+        const raw = localStorage.getItem(CONTACT_STATE_KEY);
+        if (!raw) {
+          return {};
+        }
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch (_) {
+        return {};
+      }
+    };
 
     const applyStoredTheme = () => {
       try {
@@ -256,18 +271,18 @@ Back
 
     const restoreFormState = () => {
       if (!conversationForm) {
-        return;
+        return false;
       }
 
       try {
         const rawState = localStorage.getItem(FORM_STATE_KEY);
         if (!rawState) {
-          return;
+          return false;
         }
 
         const parsedState = JSON.parse(rawState);
         if (!parsedState || typeof parsedState !== "object") {
-          return;
+          return false;
         }
 
         const formElements = Array.from(conversationForm.elements);
@@ -287,11 +302,111 @@ Back
 
           element.value = savedValue;
         });
+
+        return true;
       } catch (_) {
+        return false;
       }
     };
 
-    restoreFormState();
+    const applyConsultationAutofill = () => {
+      if (!conversationForm) {
+        return;
+      }
+
+      const consultationState = readConsultationState();
+      if (!consultationState || typeof consultationState !== "object") {
+        return;
+      }
+
+      const projectTypeByArchetype = {
+        "Commercial Complex": "Commercial Development",
+        "Residential Villa": "Residential Estate",
+        "Interior Renovation": "Renovation & Adaptive Reuse"
+      };
+
+      const budgetByStep = {
+        0: "$500k - $1M",
+        1: "$500k - $1M",
+        2: "$3M - $7M",
+        3: "$7M+",
+        4: "$7M+"
+      };
+
+      const toTimelineWindow = (months) => {
+        if (months <= 3) {
+          return "Immediate (0-3 months)";
+        }
+        if (months <= 6) {
+          return "Near term (3-6 months)";
+        }
+        if (months <= 12) {
+          return "Mid term (6-12 months)";
+        }
+        return "Exploratory (12+ months)";
+      };
+
+      const projectTypeSelect = conversationForm.querySelector('[name="projectType"]');
+      const budgetSelect = conversationForm.querySelector('[name="budget"]');
+      const timelineSelect = conversationForm.querySelector('[name="timeline"]');
+      const locationInput = conversationForm.querySelector('[name="location"]');
+      const briefInput = conversationForm.querySelector('[name="brief"]');
+
+      if (projectTypeSelect) {
+        const mappedProjectType = projectTypeByArchetype[String(consultationState.projectType || "")] || "";
+        if (mappedProjectType) {
+          projectTypeSelect.value = mappedProjectType;
+        }
+      }
+
+      if (budgetSelect) {
+        const budgetStep = Number.parseInt(String(consultationState.budgetStep ?? ""), 10);
+        if (!Number.isNaN(budgetStep) && Object.prototype.hasOwnProperty.call(budgetByStep, budgetStep)) {
+          budgetSelect.value = budgetByStep[budgetStep];
+        }
+      }
+
+      if (timelineSelect) {
+        const timelineMonths = Number.parseInt(String(consultationState.timelineMonths ?? ""), 10);
+        if (!Number.isNaN(timelineMonths)) {
+          timelineSelect.value = toTimelineWindow(timelineMonths);
+        }
+      }
+
+      if (locationInput && (!locationInput.value || !locationInput.value.trim())) {
+        const locationType = typeof consultationState.locationType === "string" ? consultationState.locationType.trim() : "";
+        if (locationType) {
+          locationInput.value = `${locationType} area`;
+        }
+      }
+
+      if (briefInput && (!briefInput.value || !briefInput.value.trim())) {
+        const areaSize = Number.parseInt(String(consultationState.areaSize ?? ""), 10);
+        const budgetLabels = ["< $500k", "$500k - $1M", "$2.5M - $5M", "$5M - $7.5M", "$10M+"];
+        const budgetStep = Number.parseInt(String(consultationState.budgetStep ?? ""), 10);
+        const budgetSliderValue = Number.isNaN(budgetStep) ? "Not provided" : (budgetLabels[budgetStep] || "Not provided");
+        const timelineMonths = Number.parseInt(String(consultationState.timelineMonths ?? ""), 10);
+        const archetype = typeof consultationState.projectType === "string" ? consultationState.projectType : "Not provided";
+        const locationType = typeof consultationState.locationType === "string" ? consultationState.locationType : "Not provided";
+
+        briefInput.value = [
+          "Project goals:",
+          "",
+          "- Please refine this brief with your specific requirements.",
+          `- Consultation archetype: ${archetype}`,
+          `- Consultation budget slider: ${budgetSliderValue}`,
+          `- Consultation timeline dial: ${Number.isNaN(timelineMonths) ? "Not provided" : `${timelineMonths} months`}`,
+          `- Consultation area size: ${Number.isNaN(areaSize) ? "Not provided" : `${areaSize.toLocaleString()} sq.ft`}`,
+          `- Consultation location type: ${locationType}`
+        ].join("\n");
+      }
+    };
+
+    const didRestoreSavedForm = restoreFormState();
+    if (!didRestoreSavedForm) {
+      applyConsultationAutofill();
+      saveFormState();
+    }
 
     if (conversationForm) {
       conversationForm.addEventListener("input", saveFormState);
@@ -314,43 +429,60 @@ Back
 
         saveFormState();
 
-        const originalLabel = submitButton ? submitButton.innerHTML : "";
-        if (submitButton) {
-          submitButton.disabled = true;
-          submitButton.classList.add("opacity-70", "cursor-not-allowed");
-          submitButton.innerHTML = 'Sending... <span class="material-symbols-outlined">progress_activity</span>';
+        const consultationState = readConsultationState();
+        const consultationBudgetMap = ["< $500k", "$500k - $1M", "$2.5M - $5M", "$5M - $7.5M", "$10M+"];
+        const consultationBudgetStep = Number.parseInt(String(consultationState.budgetStep ?? ""), 10);
+        const consultationBudget = Number.isNaN(consultationBudgetStep)
+          ? "Not provided"
+          : (consultationBudgetMap[consultationBudgetStep] || "Not provided");
+        const consultationAreaSize = Number.parseInt(String(consultationState.areaSize ?? ""), 10);
+        const consultationTimelineMonths = Number.parseInt(String(consultationState.timelineMonths ?? ""), 10);
+
+        const emailSubject = `New Consultation Request • ${String(payload.projectType).trim()} • ${String(payload.fullName).trim()}`;
+        const emailBody = [
+          "Hello Micasa-maa Strategy Desk,",
+          "",
+          "Please find my consultation request details below.",
+          "",
+          "=== CLIENT PROFILE ===",
+          `Full Name: ${String(payload.fullName).trim()}`,
+          `Work Email: ${String(payload.email).trim()}`,
+          `Preferred Contact Channel: ${String(payload.channel).trim()}`,
+          "",
+          "=== PROJECT REQUEST ===",
+          `Project Type: ${String(payload.projectType).trim()}`,
+          `Project Location: ${String(payload.location).trim()}`,
+          `Budget Range (Client Selection): ${String(payload.budget).trim()}`,
+          `Preferred Start Window: ${String(payload.timeline).trim()}`,
+          "",
+          "=== PROJECT BRIEF ===",
+          String(payload.brief).trim(),
+          "",
+          "=== CONSULTATION CONFIG SNAPSHOT (From Interactive Tool) ===",
+          `Archetype: ${typeof consultationState.projectType === "string" ? consultationState.projectType : "Not provided"}`,
+          `Budget Slider: ${consultationBudget}`,
+          `Timeline Dial: ${Number.isNaN(consultationTimelineMonths) ? "Not provided" : `${consultationTimelineMonths} months`}`,
+          `Area Size: ${Number.isNaN(consultationAreaSize) ? "Not provided" : `${consultationAreaSize.toLocaleString()} sq.ft`}`,
+          `Location Type: ${typeof consultationState.locationType === "string" ? consultationState.locationType : "Not provided"}`,
+          "",
+          "Kind regards,",
+          String(payload.fullName).trim()
+        ].join("\n");
+
+        const recipient = INTAKE_EMAIL.trim();
+        const mailtoUrl = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+        const openWebmail = window.confirm(
+          "Your email draft is ready.\n\nPress OK to open Gmail in your browser, or Cancel to open your default email app."
+        );
+
+        if (openWebmail) {
+          window.location.href = gmailComposeUrl;
+          return;
         }
 
-        fetch(BACKEND_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        })
-          .then(async (response) => {
-            const data = await response.json().catch(() => ({}));
-            if (!response.ok || !data.ok) {
-              throw new Error(data.error || "Unable to send request right now.");
-            }
-
-            window.alert("Request sent successfully. Our team will contact you shortly.");
-            conversationForm.reset();
-            try {
-              localStorage.removeItem(FORM_STATE_KEY);
-            } catch (_) {
-            }
-          })
-          .catch((error) => {
-            window.alert(error instanceof Error ? error.message : "Request failed. Please try again.");
-          })
-          .finally(() => {
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.classList.remove("opacity-70", "cursor-not-allowed");
-              submitButton.innerHTML = originalLabel;
-            }
-          });
+        window.location.href = mailtoUrl;
       });
     }
 
