@@ -212,9 +212,44 @@ Back
     const FORM_STATE_KEY = "micasa-conversation-form-state";
     const CONTACT_STATE_KEY = "micasa-consultation-state";
     const BACKEND_ENDPOINT = "https://micasa-zoho-worker.YOUR_SUBDOMAIN.workers.dev";
-    const INTAKE_EMAIL = "";
+    const INTAKE_EMAIL = "micasaconsultancy@gmail.com";
+    const INTAKE_EMAIL_KEY = "micasa-intake-email";
     const conversationForm = document.getElementById("conversation-form");
     const submitButton = conversationForm ? conversationForm.querySelector('button[type="submit"]') : null;
+
+    const resolveIntakeEmail = () => {
+      const configured = String(INTAKE_EMAIL || "").trim();
+      if (configured) {
+        return configured;
+      }
+
+      try {
+        const saved = localStorage.getItem(INTAKE_EMAIL_KEY);
+        if (saved && saved.trim()) {
+          return saved.trim();
+        }
+      } catch (_) {
+      }
+
+      const entered = window.prompt("Enter the recipient email for consultation requests:", "");
+      if (!entered || !entered.trim()) {
+        return "";
+      }
+
+      const email = entered.trim();
+      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isValidEmail) {
+        window.alert("Please enter a valid recipient email address.");
+        return "";
+      }
+
+      try {
+        localStorage.setItem(INTAKE_EMAIL_KEY, email);
+      } catch (_) {
+      }
+
+      return email;
+    };
 
     const readConsultationState = () => {
       try {
@@ -469,7 +504,11 @@ Back
           String(payload.fullName).trim()
         ].join("\n");
 
-        const recipient = INTAKE_EMAIL.trim();
+        const recipient = resolveIntakeEmail();
+        if (!recipient) {
+          window.alert("No recipient email configured. Please set one and try again.");
+          return;
+        }
         const mailtoUrl = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
         const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
